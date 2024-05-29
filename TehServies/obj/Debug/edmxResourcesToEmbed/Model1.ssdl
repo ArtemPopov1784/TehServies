@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище TehServiesModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Accounts">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Login" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Role" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Crushes">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Oborudovaniye">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Statuses">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Zayavki">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Number" Type="int" Nullable="false" />
+    <Property Name="Date" Type="date" />
+    <Property Name="Oborudovaniye" Type="int" Nullable="false" />
+    <Property Name="Crush" Type="int" Nullable="false" />
+    <Property Name="Descr" Type="varchar(max)" />
+    <Property Name="Client" Type="int" Nullable="false" />
+    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="Otvetstvennii" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Accounts_Roles">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+    <End Role="Accounts" Type="Self.Accounts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Accounts">
+        <PropertyRef Name="Role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zayavki_Accounts">
+    <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+    <End Role="Zayavki" Type="Self.Zayavki" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Accounts">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Zayavki">
+        <PropertyRef Name="Otvetstvennii" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zayavki_Accounts1">
+    <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+    <End Role="Zayavki" Type="Self.Zayavki" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Accounts">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Zayavki">
+        <PropertyRef Name="Client" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zayavki_Crushes">
+    <End Role="Crushes" Type="Self.Crushes" Multiplicity="1" />
+    <End Role="Zayavki" Type="Self.Zayavki" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Crushes">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Zayavki">
+        <PropertyRef Name="Crush" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zayavki_Oborudovaniye">
+    <End Role="Oborudovaniye" Type="Self.Oborudovaniye" Multiplicity="1" />
+    <End Role="Zayavki" Type="Self.Zayavki" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Oborudovaniye">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Zayavki">
+        <PropertyRef Name="Oborudovaniye" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zayavki_Statuses">
+    <End Role="Statuses" Type="Self.Statuses" Multiplicity="1" />
+    <End Role="Zayavki" Type="Self.Zayavki" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Statuses">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Zayavki">
+        <PropertyRef Name="Status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище TehServiesModelContainer">
+    <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Crushes" EntityType="Self.Crushes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Oborudovaniye" EntityType="Self.Oborudovaniye" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Statuses" EntityType="Self.Statuses" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Zayavki" EntityType="Self.Zayavki" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Accounts_Roles" Association="Self.FK_Accounts_Roles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Accounts" EntitySet="Accounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zayavki_Accounts" Association="Self.FK_Zayavki_Accounts">
+      <End Role="Accounts" EntitySet="Accounts" />
+      <End Role="Zayavki" EntitySet="Zayavki" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zayavki_Accounts1" Association="Self.FK_Zayavki_Accounts1">
+      <End Role="Accounts" EntitySet="Accounts" />
+      <End Role="Zayavki" EntitySet="Zayavki" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zayavki_Crushes" Association="Self.FK_Zayavki_Crushes">
+      <End Role="Crushes" EntitySet="Crushes" />
+      <End Role="Zayavki" EntitySet="Zayavki" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zayavki_Oborudovaniye" Association="Self.FK_Zayavki_Oborudovaniye">
+      <End Role="Oborudovaniye" EntitySet="Oborudovaniye" />
+      <End Role="Zayavki" EntitySet="Zayavki" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zayavki_Statuses" Association="Self.FK_Zayavki_Statuses">
+      <End Role="Statuses" EntitySet="Statuses" />
+      <End Role="Zayavki" EntitySet="Zayavki" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

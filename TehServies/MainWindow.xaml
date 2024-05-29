@@ -1,0 +1,71 @@
+﻿<Window x:Class="TehServies.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TehServies"
+        mc:Ignorable="d"
+        Title="Техносервис" Height="450" Width="800">
+    <Grid ScrollViewer.CanContentScroll="True" SelectiveScrollingGrid.SelectiveScrollingOrientation="Both">
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" MinHeight="20" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10">
+                <WrapPanel Orientation="Horizontal">
+                    <TextBox MinWidth="50" x:Name="tbNumber">Номер заявки</TextBox>
+                    <DatePicker MinWidth="50" x:Name="dpDate"></DatePicker>
+                    <ComboBox MinWidth="50" x:Name="cbObor"></ComboBox>
+                    <ComboBox MinWidth="50" x:Name="cbCrush"></ComboBox>
+                    <TextBox MinWidth="50" x:Name="tbDescr"></TextBox>
+                    <ComboBox MinWidth="50" x:Name="cbClient"></ComboBox>
+                    <ComboBox MinWidth="50" x:Name="cbStatus"></ComboBox>
+                    <ComboBox MinWidth="50" x:Name="cbOtvetstvennii"></ComboBox>
+                </WrapPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                <Button Click="tbAdd_Click">Добавить</Button>
+                <Button Click="tbEdit_Click">Изменить</Button>
+                <Button Click="tbDelete_Click">Удалить</Button>
+            </StackPanel>
+            <TextBox x:Name="tbSearch" TextAlignment="Center" Text="Поиск" Margin="10"/>
+            <Button Width="60" Click="btSearch_Click" Margin="10">Поиск 👆</Button>
+
+            <ListView MinHeight="100" MinWidth="10" Name="lwZayavki" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="lwZayavki_SelectionChanged" Margin="10">
+
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"></WrapPanel>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <TextBlock>Номер заявки -</TextBlock>
+                                    <TextBlock>Дата добавления -</TextBlock>
+                                    <TextBlock>Оборудование -</TextBlock>
+                                    <TextBlock>Неисправность -</TextBlock>
+                                    <TextBlock>Описание -</TextBlock>
+                                    <TextBlock>Клиент -</TextBlock>
+                                    <TextBlock>Статус -</TextBlock>
+                                    <TextBlock>Ответственный -</TextBlock>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Number}"></TextBlock>
+                                    <TextBlock Text="{Binding Date}"></TextBlock>
+                                    <TextBlock Text="{Binding Oborudovaniye}"></TextBlock>
+                                    <TextBlock Text="{Binding Crush}"></TextBlock>
+                                    <TextBlock Text="{Binding Descr}"></TextBlock>
+                                    <TextBlock Text="{Binding Client}"></TextBlock>
+                                    <TextBlock Text="{Binding Status}"></TextBlock>
+                                    <TextBlock Text="{Binding Otvetstvennii}"></TextBlock>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </StackPanel>
+
+    </Grid>
+</Window>

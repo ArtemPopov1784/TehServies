@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TehServiesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Accounts">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Role" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Roles" Relationship="Self.FK_Accounts_Roles" FromRole="Accounts" ToRole="Roles" />
+    <NavigationProperty Name="Zayavki" Relationship="Self.FK_Zayavki_Accounts" FromRole="Accounts" ToRole="Zayavki" />
+    <NavigationProperty Name="Zayavki1" Relationship="Self.FK_Zayavki_Accounts1" FromRole="Accounts" ToRole="Zayavki" />
+  </EntityType>
+  <EntityType Name="Crushes">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Zayavki" Relationship="Self.FK_Zayavki_Crushes" FromRole="Crushes" ToRole="Zayavki" />
+  </EntityType>
+  <EntityType Name="Oborudovaniye">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Zayavki" Relationship="Self.FK_Zayavki_Oborudovaniye" FromRole="Oborudovaniye" ToRole="Zayavki" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Accounts" Relationship="Self.FK_Accounts_Roles" FromRole="Roles" ToRole="Accounts" />
+  </EntityType>
+  <EntityType Name="Statuses">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Zayavki" Relationship="Self.FK_Zayavki_Statuses" FromRole="Statuses" ToRole="Zayavki" />
+  </EntityType>
+  <EntityType Name="Zayavki">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Number" Type="Int32" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <Property Name="Oborudovaniye" Type="Int32" Nullable="false" />
+    <Property Name="Crush" Type="Int32" Nullable="false" />
+    <Property Name="Descr" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Client" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="Otvetstvennii" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Accounts" Relationship="Self.FK_Zayavki_Accounts" FromRole="Zayavki" ToRole="Accounts" />
+    <NavigationProperty Name="Accounts1" Relationship="Self.FK_Zayavki_Accounts1" FromRole="Zayavki" ToRole="Accounts" />
+    <NavigationProperty Name="Crushes" Relationship="Self.FK_Zayavki_Crushes" FromRole="Zayavki" ToRole="Crushes" />
+    <NavigationProperty Name="Oborudovaniye1" Relationship="Self.FK_Zayavki_Oborudovaniye" FromRole="Zayavki" ToRole="Oborudovaniye" />
+    <NavigationProperty Name="Statuses" Relationship="Self.FK_Zayavki_Statuses" FromRole="Zayavki" ToRole="Statuses" />
+  </EntityType>
+  <Association Name="FK_Accounts_Roles">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+    <End Role="Accounts" Type="Self.Accounts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Accounts">
+        <PropertyRef Name="Role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zayavki_Accounts">
+    <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+    <End Role="Zayavki" Type="Self.Zayavki" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Accounts">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Zayavki">
+        <PropertyRef Name="Otvetstvennii" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zayavki_Accounts1">
+    <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+    <End Role="Zayavki" Type="Self.Zayavki" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Accounts">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Zayavki">
+        <PropertyRef Name="Client" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zayavki_Crushes">
+    <End Role="Crushes" Type="Self.Crushes" Multiplicity="1" />
+    <End Role="Zayavki" Type="Self.Zayavki" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Crushes">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Zayavki">
+        <PropertyRef Name="Crush" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zayavki_Oborudovaniye">
+    <End Role="Oborudovaniye" Type="Self.Oborudovaniye" Multiplicity="1" />
+    <End Role="Zayavki" Type="Self.Zayavki" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Oborudovaniye">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Zayavki">
+        <PropertyRef Name="Oborudovaniye" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zayavki_Statuses">
+    <End Role="Statuses" Type="Self.Statuses" Multiplicity="1" />
+    <End Role="Zayavki" Type="Self.Zayavki" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Statuses">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Zayavki">
+        <PropertyRef Name="Status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TehServiesEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Accounts" EntityType="Self.Accounts" />
+    <EntitySet Name="Crushes" EntityType="Self.Crushes" />
+    <EntitySet Name="Oborudovaniye" EntityType="Self.Oborudovaniye" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" />
+    <EntitySet Name="Statuses" EntityType="Self.Statuses" />
+    <EntitySet Name="Zayavki" EntityType="Self.Zayavki" />
+    <AssociationSet Name="FK_Accounts_Roles" Association="Self.FK_Accounts_Roles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Accounts" EntitySet="Accounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zayavki_Accounts" Association="Self.FK_Zayavki_Accounts">
+      <End Role="Accounts" EntitySet="Accounts" />
+      <End Role="Zayavki" EntitySet="Zayavki" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zayavki_Accounts1" Association="Self.FK_Zayavki_Accounts1">
+      <End Role="Accounts" EntitySet="Accounts" />
+      <End Role="Zayavki" EntitySet="Zayavki" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zayavki_Crushes" Association="Self.FK_Zayavki_Crushes">
+      <End Role="Crushes" EntitySet="Crushes" />
+      <End Role="Zayavki" EntitySet="Zayavki" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zayavki_Oborudovaniye" Association="Self.FK_Zayavki_Oborudovaniye">
+      <End Role="Oborudovaniye" EntitySet="Oborudovaniye" />
+      <End Role="Zayavki" EntitySet="Zayavki" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zayavki_Statuses" Association="Self.FK_Zayavki_Statuses">
+      <End Role="Statuses" EntitySet="Statuses" />
+      <End Role="Zayavki" EntitySet="Zayavki" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
